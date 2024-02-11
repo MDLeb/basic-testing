@@ -1,17 +1,21 @@
 // Uncomment the code below and write your tests
-/* import {  simpleCalculator, Action } from './index';
+import { simpleCalculator, Action } from './index';
 
 const testCases = [
-    { a: 1, b: 2, action: Action.Add, expected: 3 },
-    { a: 2, b: 2, action: Action.Add, expected: 4 },
-    { a: 3, b: 2, action: Action.Add, expected: 5 },
-    // continue cases for other actions    
-]; */
+  { a: 1, b: 2, action: Action.Add, expected: 3, testDescription: 'should return' },
+  { a: 2, b: 2, action: Action.Add, expected: 4, testDescription: 'should return' },
+  { a: 3, b: 2, action: Action.Subtract, expected: 1, testDescription: 'should return' },
+  { a: -1, b: -2, action: Action.Subtract, expected: 1, testDescription: 'should return' },
+  { a: 2, b: 2, action: Action.Multiply, expected: 4, testDescription: 'should return' },
+  { a: 3, b: 2, action: Action.Multiply, expected: 6, testDescription: 'should return' },
+  { a: 1, b: 2, action: Action.Divide, expected: 0.5, testDescription: 'should return' },
+  { a: 2, b: 0, action: Action.Divide, expected: Infinity, testDescription: 'should return' },
+  { a: 3, b: 2, action: Action.Exponentiate, expected: 9, testDescription: 'should return' },
+  { a: 2, b: -1, action: Action.Exponentiate, expected: 0.5, testDescription: 'should return' },
+];
 
 describe('simpleCalculator', () => {
-  // This test case is just to run this test suite, remove it when you write your own tests
-  test('should blah-blah', () => {
-    expect(true).toBe(true);
+  it.each(testCases)('$testDescription', (i) => {
+    expect(simpleCalculator(i)).toEqual(i.expected);
   });
-  // Consider to use Jest table tests API to test all cases above
 });
