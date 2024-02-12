@@ -1,6 +1,6 @@
 // Uncomment the code below and write your tests
 import axios from 'axios';
-import { throttledGetDataFromApi, /*THROTTLE_TIME*/ } from './index';
+import { throttledGetDataFromApi, THROTTLE_TIME } from './index';
 
 describe('throttledGetDataFromApi', () => {
 
@@ -16,11 +16,20 @@ describe('throttledGetDataFromApi', () => {
     });
   });
 
+  const mockAnswer = { data: 'smth' }
   test('should perform request to correct provided url', async () => {
-   
+    jest.spyOn(axios, 'create').mockReturnThis();
+    jest.spyOn(axios, 'get').mockResolvedValue(mockAnswer);
+    await throttledGetDataFromApi('/posts');
+    jest.advanceTimersByTime(THROTTLE_TIME);
+    expect(axios.get).toHaveBeenCalledWith('/posts');
+
   });
 
   test('should return response data', async () => {
-    // Write your test here
+    jest.spyOn(axios, 'create').mockReturnThis();
+    jest.spyOn(axios, 'get').mockResolvedValue(mockAnswer);
+    const answer = await throttledGetDataFromApi('/posts');
+    expect(answer).toEqual(mockAnswer.data);
   });
 });
